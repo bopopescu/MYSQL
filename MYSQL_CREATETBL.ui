@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Form</class>
- <widget class="QWidget" name="Form">
+ <class>MYSQL_CREATETBL</class>
+ <widget class="QWidget" name="MYSQL_CREATETBL">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -282,7 +282,7 @@
      <string>COLUMN 4 TYPE:</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="t">
+   <widget class="QLineEdit" name="txttblname">
     <property name="geometry">
      <rect>
       <x>180</x>
@@ -378,7 +378,7 @@
    <zorder>label_11</zorder>
    <zorder>label_8</zorder>
    <zorder>label_12</zorder>
-   <zorder>t</zorder>
+   <zorder>txttblname</zorder>
    <zorder>txtcolumn1name</zorder>
    <zorder>txtcolumn2name</zorder>
    <zorder>txtcolumn1type</zorder>
