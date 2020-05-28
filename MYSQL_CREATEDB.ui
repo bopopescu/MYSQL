@@ -51,7 +51,7 @@
     <string>DATABASE NAME: </string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton">
+  <widget class="QPushButton" name="btncreate">
    <property name="geometry">
     <rect>
      <x>110</x>
@@ -64,7 +64,7 @@
     <string>CREATE</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_2">
+  <widget class="QPushButton" name="btncancel">
    <property name="geometry">
     <rect>
      <x>240</x>
@@ -90,8 +90,8 @@
   <zorder>txtDBname</zorder>
   <zorder>label</zorder>
   <zorder>label_2</zorder>
-  <zorder>pushButton</zorder>
-  <zorder>pushButton_2</zorder>
+  <zorder>btncreate</zorder>
+  <zorder>btncancel</zorder>
  </widget>
  <resources/>
  <connections/>
