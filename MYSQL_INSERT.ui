@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>582</width>
-    <height>474</height>
+    <height>460</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -70,7 +70,7 @@
     <string>DATABASE NAME: </string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="t">
+  <widget class="QLineEdit" name="txttblname">
    <property name="geometry">
     <rect>
      <x>210</x>
@@ -118,7 +118,7 @@
     <string>VALUE 1: </string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="t_2">
+  <widget class="QLineEdit" name="txtvalue1">
    <property name="geometry">
     <rect>
      <x>210</x>
@@ -147,7 +147,7 @@
     <string>VALUE 3:</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="t_3">
+  <widget class="QLineEdit" name="txtvalue3">
    <property name="geometry">
     <rect>
      <x>210</x>
@@ -176,7 +176,7 @@
     <string>VALUE 2: </string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="t_4">
+  <widget class="QLineEdit" name="txtvalue2">
    <property name="geometry">
     <rect>
      <x>210</x>
@@ -205,7 +205,7 @@
     <string>VALUE 4:</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="t_6">
+  <widget class="QLineEdit" name="txtvalue4">
    <property name="geometry">
     <rect>
      <x>210</x>
@@ -261,16 +261,16 @@
   <zorder>label</zorder>
   <zorder>label_4</zorder>
   <zorder>label_2</zorder>
-  <zorder>t</zorder>
+  <zorder>txttblname</zorder>
   <zorder>label_3</zorder>
   <zorder>label_5</zorder>
-  <zorder>t_2</zorder>
+  <zorder>txtvalue1</zorder>
   <zorder>label_6</zorder>
-  <zorder>t_3</zorder>
+  <zorder>txtvalue3</zorder>
   <zorder>label_7</zorder>
-  <zorder>t_4</zorder>
+  <zorder>txtvalue2</zorder>
   <zorder>label_9</zorder>
-  <zorder>t_6</zorder>
+  <zorder>txtvalue4</zorder>
   <zorder>btncancel</zorder>
   <zorder>btninsert</zorder>
  </widget>
