@@ -7,10 +7,42 @@
 # WARNING! All changes made in this file will be lost!
 
 
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5 import QtCore, QtGui, QtWidgets 
 
+from tkinter import messagebox
 
 class Ui_MYSQL_CREATEDB(object):
+    def createdb(self):
+        import mysql.connector
+        mydb=mysql.connector.connect(host='localhost', user='root',passwd='logon@123')
+        mycursor=mydb.cursor() 
+        db_name=self.txtDBname.text()
+        query='create database {}'.format(db_name)
+        try:
+            mycursor.execute(query)
+            from subprocess import call
+            class callpy(object):
+                def calling():
+                    print('hello')
+                    path='/Users/hadunanear/Documents/python/myprojects/QT-PROJECTS/MYSQL/PROGRAMS/messagebox/successfull_messagebox.py'
+                    call(['python3',"{}".format(path)])
+
+            if __name__=='__main__':
+                callpy.calling()
+        except Exception:
+            from subprocess import call
+            class callpy(object):
+                def calling():
+                    print('hello')
+                    path='/Users/hadunanear/Documents/python/myprojects/QT-PROJECTS/MYSQL/PROGRAMS/messagebox/unsuccessfull_messagebox.py'
+                    call(['python3',"{}".format(path)])
+
+            if __name__=='__main__':
+                callpy.calling()
+
+
+
+
     def setupUi(self, MYSQL_CREATEDB):
         MYSQL_CREATEDB.setObjectName("MYSQL_CREATEDB")
         MYSQL_CREATEDB.resize(406, 239)
@@ -31,6 +63,7 @@ class Ui_MYSQL_CREATEDB(object):
         self.btncreate = QtWidgets.QPushButton(MYSQL_CREATEDB)
         self.btncreate.setGeometry(QtCore.QRect(110, 160, 112, 32))
         self.btncreate.setObjectName("btncreate")
+        self.btncreate.clicked.connect(self.createdb)
         self.btncancel = QtWidgets.QPushButton(MYSQL_CREATEDB)
         self.btncancel.setGeometry(QtCore.QRect(240, 160, 112, 32))
         self.btncancel.setObjectName("btncancel")
