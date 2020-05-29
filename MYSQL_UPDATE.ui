@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>604</width>
-    <height>552</height>
+    <width>754</width>
+    <height>488</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -35,7 +35,7 @@
   <widget class="QPushButton" name="btnupdate">
    <property name="geometry">
     <rect>
-     <x>480</x>
+     <x>620</x>
      <y>130</y>
      <width>112</width>
      <height>32</height>
@@ -108,7 +108,7 @@
     <rect>
      <x>120</x>
      <y>20</y>
-     <width>311</width>
+     <width>421</width>
      <height>71</height>
     </rect>
    </property>
@@ -119,7 +119,7 @@
     </font>
    </property>
    <property name="text">
-    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;UPDATING VALUES &lt;/p&gt;&lt;p align=&quot;center&quot;&gt;IN TABLE&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:24pt;&quot;&gt;UPDATING VALUES IN TABLE&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
   </widget>
   <widget class="QLineEdit" name="txtvalue2">
@@ -204,8 +204,8 @@
     <rect>
      <x>20</x>
      <y>120</y>
-     <width>441</width>
-     <height>421</height>
+     <width>591</width>
+     <height>341</height>
     </rect>
    </property>
    <property name="frameShape">
@@ -214,74 +214,68 @@
    <property name="frameShadow">
     <enum>QFrame::Raised</enum>
    </property>
-   <widget class="QLineEdit" name="txtprimcol">
+   <widget class="QCheckBox" name="primkey1">
     <property name="geometry">
      <rect>
-      <x>190</x>
-      <y>320</y>
-      <width>221</width>
+      <x>440</x>
+      <y>120</y>
+      <width>101</width>
       <height>31</height>
      </rect>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_10">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>320</y>
-      <width>171</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Comic Sans MS</family>
-      <pointsize>13</pointsize>
-     </font>
     </property>
     <property name="text">
-     <string>PRIMARY KEY COL NAME:</string>
+     <string>primary key</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_11">
+   <widget class="QCheckBox" name="primkey3">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>370</y>
-      <width>171</width>
+      <x>440</x>
+      <y>220</y>
+      <width>101</width>
       <height>31</height>
      </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Comic Sans MS</family>
-      <pointsize>13</pointsize>
-     </font>
     </property>
     <property name="text">
-     <string>PRIMARY KEY VALUE:</string>
+     <string>primary key</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="txtprimval">
+   <widget class="QCheckBox" name="primkey2">
     <property name="geometry">
      <rect>
-      <x>190</x>
-      <y>370</y>
-      <width>221</width>
+      <x>440</x>
+      <y>170</y>
+      <width>101</width>
       <height>31</height>
      </rect>
     </property>
+    <property name="text">
+     <string>primary key</string>
+    </property>
    </widget>
-   <zorder>label_10</zorder>
-   <zorder>txtprimval</zorder>
-   <zorder>label_11</zorder>
-   <zorder>txtprimcol</zorder>
+   <widget class="QCheckBox" name="primkey4">
+    <property name="geometry">
+     <rect>
+      <x>440</x>
+      <y>270</y>
+      <width>101</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>primary key</string>
+    </property>
+   </widget>
+   <zorder>primkey3</zorder>
+   <zorder>primkey2</zorder>
+   <zorder>primkey1</zorder>
+   <zorder>primkey4</zorder>
   </widget>
   <widget class="QPushButton" name="btncancel">
    <property name="geometry">
     <rect>
-     <x>480</x>
-     <y>170</y>
+     <x>620</x>
+     <y>160</y>
      <width>112</width>
      <height>32</height>
     </rect>
@@ -323,18 +317,18 @@
   <zorder>btnupdate</zorder>
   <zorder>label</zorder>
   <zorder>btncancel</zorder>
-  <zorder>label_3</zorder>
-  <zorder>label_7</zorder>
-  <zorder>txttblname</zorder>
-  <zorder>label_9</zorder>
-  <zorder>txtvalue1</zorder>
   <zorder>label_5</zorder>
-  <zorder>txtvalue4</zorder>
-  <zorder>label_4</zorder>
   <zorder>label_6</zorder>
   <zorder>txtvalue2</zorder>
   <zorder>txtvalue3</zorder>
+  <zorder>txtvalue1</zorder>
+  <zorder>txtvalue4</zorder>
+  <zorder>label_3</zorder>
+  <zorder>label_4</zorder>
+  <zorder>txttblname</zorder>
+  <zorder>label_9</zorder>
   <zorder>label_2</zorder>
+  <zorder>label_7</zorder>
  </widget>
  <resources/>
  <connections/>
