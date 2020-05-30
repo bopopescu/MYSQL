@@ -11,6 +11,64 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 
 class Ui_MYSQL_CREATETBL(object):
+    def createtbl(self):
+        import mysql.connector
+        mydb=mysql.connector.connect(host='localhost', user='root',passwd='logon@123',database='python')
+        mycursor=mydb.cursor()
+        tablename=self.txttblname.text()
+        col1name=self.txtcolumn1name.text()
+        col1type=self.txtcolumn1type.text()
+        col2name=self.txtcolumn2name.text()
+        col2type=self.txtcolumn2type.text()
+        col3name=self.txtcolumn3name.text()
+        col3type=self.txtcolumn3type.text()
+        col4name=self.txtcolumn4name.text()
+        col4type=self.txtcolumn4type.text()
+        query='create table {}({} {},{} {},{} {},{} {}'.format(tablename,col1name,col1type,col2name,col2type,col3name,col3type,col4name,col4type)
+        query=query.rstrip(' ,')
+        temp=query+')'
+        query=''
+        start=0
+        print(temp)
+        for i in range(len(temp)):
+            if temp[i]==',' and temp[i-1]==' ' and temp[i-2]==',':
+                tempp=i-1
+                temp=temp[start:tempp]
+                query=query+temp
+                start=tempp+2
+                print(query)
+        print(query)
+        try:
+            mycursor.execute(query)
+            from subprocess import call
+            class callpy(object):
+                def calling():
+                    path='/Users/hadunanear/Documents/python/myprojects/QT-PROJECTS/MYSQL/PROGRAMS/messagebox/successfull_messagebox.py'
+                    call(['python3',"{}".format(path)])
+
+            if __name__=='__main__':
+                callpy.calling()
+            
+            sys.exit()
+
+        except Exception:
+            from subprocess import call
+            class callpy(object):
+                def calling():
+                    print('hello')
+                    path='/Users/hadunanear/Documents/python/myprojects/QT-PROJECTS/MYSQL/PROGRAMS/messagebox/unsuccessfull_messagebox.py'
+                    call(['python3',"{}".format(path)])
+
+            if __name__=='__main__':
+                callpy.calling()
+            
+
+
+
+
+
+
+
     def setupUi(self, MYSQL_CREATETBL):
         MYSQL_CREATETBL.setObjectName("MYSQL_CREATETBL")
         MYSQL_CREATETBL.resize(619, 633)
@@ -31,6 +89,7 @@ class Ui_MYSQL_CREATETBL(object):
         self.btnCreate = QtWidgets.QPushButton(MYSQL_CREATETBL)
         self.btnCreate.setGeometry(QtCore.QRect(490, 90, 112, 32))
         self.btnCreate.setObjectName("btnCreate")
+        self.btnCreate.clicked.connect(self.createtbl)
         self.btncancel = QtWidgets.QPushButton(MYSQL_CREATETBL)
         self.btncancel.setGeometry(QtCore.QRect(490, 130, 112, 32))
         self.btncancel.setObjectName("btncancel")

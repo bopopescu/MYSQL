@@ -9,13 +9,20 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from MYSQL_CREATEDB import Ui_MYSQL_CREATEDB
+from subprocess import call
 
 class Ui_MYSQL_MAINWINDOW(object):
     def createdb(self):
-         self.window = QtWidgets.QMainWindow()
-         self.ui=Ui_MYSQL_CREATEDB()
-         self.ui.setupUi(self.window)
-         self.window.show()
+        class callpy(object):
+            def calling():
+                path='/Users/hadunanear/Documents/python/myprojects/QT-PROJECTS/MYSQL/PROGRAMS/MYSQL_CREATEDB.py'
+                call(['python3',"{}".format(path)])
+
+        if __name__=='__main__':
+            callpy.calling()
+    def createtbl(self):
+
+
     def setupUi(self, MYSQL_MAINWINDOW):
         MYSQL_MAINWINDOW.setObjectName("MYSQL_MAINWINDOW")
         MYSQL_MAINWINDOW.resize(361, 480)
@@ -44,6 +51,7 @@ class Ui_MYSQL_MAINWINDOW(object):
         font.setItalic(False)
         self.btnCreateTbl.setFont(font)
         self.btnCreateTbl.setObjectName("btnCreateTbl")
+        self.btnCreateTbl.clicked.connect(self.createtbl)
         self.btnInsertValues = QtWidgets.QPushButton(MYSQL_MAINWINDOW)
         self.btnInsertValues.setGeometry(QtCore.QRect(20, 220, 301, 31))
         font = QtGui.QFont()

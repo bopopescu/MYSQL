@@ -10,6 +10,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets 
 
 from tkinter import messagebox
+import sys
 
 class Ui_MYSQL_CREATEDB(object):
     def createdb(self):
@@ -29,6 +30,9 @@ class Ui_MYSQL_CREATEDB(object):
 
             if __name__=='__main__':
                 callpy.calling()
+            
+            sys.exit()
+
         except Exception:
             from subprocess import call
             class callpy(object):
@@ -39,6 +43,9 @@ class Ui_MYSQL_CREATEDB(object):
 
             if __name__=='__main__':
                 callpy.calling()
+    
+    def cancel(self):
+        sys.exit()
 
 
 
@@ -67,6 +74,7 @@ class Ui_MYSQL_CREATEDB(object):
         self.btncancel = QtWidgets.QPushButton(MYSQL_CREATEDB)
         self.btncancel.setGeometry(QtCore.QRect(240, 160, 112, 32))
         self.btncancel.setObjectName("btncancel")
+        self.btncancel.clicked.connect(self.cancel)
         self.txtDBname = QtWidgets.QLineEdit(MYSQL_CREATEDB)
         self.txtDBname.setGeometry(QtCore.QRect(182, 110, 211, 31))
         self.txtDBname.setObjectName("txtDBname")
