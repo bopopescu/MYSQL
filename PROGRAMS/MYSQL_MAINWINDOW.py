@@ -10,17 +10,20 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from MYSQL_CREATEDB import Ui_MYSQL_CREATEDB
 from subprocess import call
-
+from MYSQL_CREATEDB import Ui_MYSQL_CREATEDB
+from MYSQL_CREATETBL import Ui_MYSQL_CREATETBL
+from MYSQL_ALTER import Ui_MYSQL_ALTER
 class Ui_MYSQL_MAINWINDOW(object):
     def createdb(self):
-        class callpy(object):
-            def calling():
-                path='/Users/hadunanear/Documents/python/myprojects/QT-PROJECTS/MYSQL/PROGRAMS/MYSQL_CREATEDB.py'
-                call(['python3',"{}".format(path)])
-
-        if __name__=='__main__':
-            callpy.calling()
+        self.MYSQL_CREATEDB = QtWidgets.QWidget()
+        self.ui = Ui_MYSQL_CREATEDB()
+        self.ui.setupUi(self.MYSQL_CREATEDB)
+        self.MYSQL_CREATEDB.show()
     def createtbl(self):
+        self.MYSQL_CREATETBL = QtWidgets.QWidget()
+        self.ui = Ui_MYSQL_CREATETBL()
+        self.ui.setupUi(self.MYSQL_CREATETBL)
+        self.MYSQL_CREATETBL.show()
 
 
     def setupUi(self, MYSQL_MAINWINDOW):

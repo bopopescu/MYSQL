@@ -8,41 +8,39 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets 
+from PyQt5.QtWidgets import QMessageBox
 
 from tkinter import messagebox
 import sys
-
 class Ui_MYSQL_CREATEDB(object):
+    def ShowMessageBox(self,title,message):
+        msgbox = QtWidgets.QMessageBox()
+        msgbox.setIcon(QtWidgets.QMessageBox.Information)
+        msgbox.setWindowTitle(title)
+        msgbox.setText(message)
+        msgbox.exec_()
+    def ShowMessageBox_(self,title,message):
+        msgbox = QtWidgets.QMessageBox()
+        msgbox.setIcon(QtWidgets.QMessageBox.Warning)
+        msgbox.setWindowTitle(title)
+        msgbox.setText(message)
+        msgbox.exec_()
+
+
     def createdb(self):
         import mysql.connector
         mydb=mysql.connector.connect(host='localhost', user='root',passwd='logon@123')
         mycursor=mydb.cursor() 
         db_name=self.txtDBname.text()
         query='create database {}'.format(db_name)
+        
         try:
             mycursor.execute(query)
-            from subprocess import call
-            class callpy(object):
-                def calling():
-                    print('hello')
-                    path='/Users/hadunanear/Documents/python/myprojects/QT-PROJECTS/MYSQL/PROGRAMS/messagebox/successfull_messagebox.py'
-                    call(['python3',"{}".format(path)])
-
-            if __name__=='__main__':
-                callpy.calling()
-            
+            self.ShowMessageBox('SUCCESSFULL','DB HAS BEEN CREATED SUCESSFULLY')
             sys.exit()
 
         except Exception:
-            from subprocess import call
-            class callpy(object):
-                def calling():
-                    print('hello')
-                    path='/Users/hadunanear/Documents/python/myprojects/QT-PROJECTS/MYSQL/PROGRAMS/messagebox/unsuccessfull_messagebox.py'
-                    call(['python3',"{}".format(path)])
-
-            if __name__=='__main__':
-                callpy.calling()
+            self.ShowMessageBox_('FAILED','FAILED TO CREATE  DB. RECHECK VALUES!!')
     
     def cancel(self):
         sys.exit()

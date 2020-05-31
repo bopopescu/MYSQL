@@ -8,9 +8,21 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-
-
+import sys
 class Ui_MYSQL_CREATETBL(object):
+    def ShowMessageBox(self,title,message):
+        msgbox = QtWidgets.QMessageBox()
+        msgbox.setIcon(QtWidgets.QMessageBox.Information)
+        msgbox.setWindowTitle(title)
+        msgbox.setText(message)
+        msgbox.exec_()
+    def ShowMessageBox_(self,title,message):
+        msgbox = QtWidgets.QMessageBox()
+        msgbox.setIcon(QtWidgets.QMessageBox.Warning)
+        msgbox.setWindowTitle(title)
+        msgbox.setText(message)
+        msgbox.exec_()
+
     def createtbl(self):
         import mysql.connector
         mydb=mysql.connector.connect(host='localhost', user='root',passwd='logon@123',database='python')
@@ -24,43 +36,38 @@ class Ui_MYSQL_CREATETBL(object):
         col3type=self.txtcolumn3type.text()
         col4name=self.txtcolumn4name.text()
         col4type=self.txtcolumn4type.text()
-        query='create table {}({} {},{} {},{} {},{} {}'.format(tablename,col1name,col1type,col2name,col2type,col3name,col3type,col4name,col4type)
-        query=query.rstrip(' ,')
-        temp=query+')'
-        query=''
-        start=0
-        print(temp)
-        for i in range(len(temp)):
-            if temp[i]==',' and temp[i-1]==' ' and temp[i-2]==',':
-                tempp=i-1
-                temp=temp[start:tempp]
-                query=query+temp
-                start=tempp+2
-                print(query)
-        print(query)
-        try:
-            mycursor.execute(query)
-            from subprocess import call
-            class callpy(object):
-                def calling():
-                    path='/Users/hadunanear/Documents/python/myprojects/QT-PROJECTS/MYSQL/PROGRAMS/messagebox/successfull_messagebox.py'
-                    call(['python3',"{}".format(path)])
+        if col1name=='' and col1type=='' and col2name=='' and col2type== '' and  col3name=='' and col3type=='' and col4name=='' and col4type=='':
+            self.ShowMessageBox_('FAILED','PLEASE ENTER VALUES')
 
-            if __name__=='__main__':
-                callpy.calling()
-            
-            sys.exit()
+        elif col1name==col2name==col3name==col4name:
+            self.ShowMessageBox_('FAILED','ALL COLUMN NAMES ARE EQUAL')
+        else:
+            query='create table {}({} {},{} {},{} {},{} {}'.format(tablename,col1name,col1type,col2name,col2type,col3name,col3type,col4name,col4type)
+            query=query.rstrip(' ,')
+            temp=query+')'
+            query=''
+            list=[]
+            start=0
+            for i in range(len(temp)):
+                if temp[i]==',' and temp[i-1]==' ' and temp[i-2]==',':
+                    list.append(i)
+                
+            for j in range(len(list)):
+                stop=list[j]-1
+                query=query+temp[start:stop]
+                start=stop+2
+                query=query+temp[start::]    
+            try:
+                mycursor.execute(query)
+                self.ShowMessageBox('successfull','successfully created table')
+                
+                sys.exit()
 
-        except Exception:
-            from subprocess import call
-            class callpy(object):
-                def calling():
-                    print('hello')
-                    path='/Users/hadunanear/Documents/python/myprojects/QT-PROJECTS/MYSQL/PROGRAMS/messagebox/unsuccessfull_messagebox.py'
-                    call(['python3',"{}".format(path)])
-
-            if __name__=='__main__':
-                callpy.calling()
+            except Exception:
+                self.ShowMessageBox_('error','error while creating table')
+    
+    def cancel(self):
+        sys.exit()
             
 
 
@@ -93,6 +100,7 @@ class Ui_MYSQL_CREATETBL(object):
         self.btncancel = QtWidgets.QPushButton(MYSQL_CREATETBL)
         self.btncancel.setGeometry(QtCore.QRect(490, 130, 112, 32))
         self.btncancel.setObjectName("btncancel")
+        self.btncancel.clicked.connect(self.cancel)
         self.label_3 = QtWidgets.QLabel(MYSQL_CREATETBL)
         self.label_3.setGeometry(QtCore.QRect(200, 110, 171, 31))
         font = QtGui.QFont()
