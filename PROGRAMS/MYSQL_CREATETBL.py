@@ -60,6 +60,7 @@ class Ui_MYSQL_CREATETBL(object):
             try:
                 mycursor.execute(query)
                 self.ShowMessageBox('successfull','successfully created table')
+                mydb.commit()
                 
                 sys.exit()
 

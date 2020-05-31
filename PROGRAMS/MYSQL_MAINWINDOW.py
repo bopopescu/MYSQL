@@ -24,6 +24,11 @@ class Ui_MYSQL_MAINWINDOW(object):
         self.ui = Ui_MYSQL_CREATETBL()
         self.ui.setupUi(self.MYSQL_CREATETBL)
         self.MYSQL_CREATETBL.show()
+    def altertbl(self):
+        self.MYSQL_ALTER = QtWidgets.QWidget()
+        self.ui = Ui_MYSQL_ALTER()
+        self.ui.setupUi(self.MYSQL_ALTER)
+        self.MYSQL_ALTER.show()
 
 
     def setupUi(self, MYSQL_MAINWINDOW):
@@ -73,6 +78,7 @@ class Ui_MYSQL_MAINWINDOW(object):
         self.btnUpdateTbl.setObjectName("btnUpdateTbl")
         self.btnAlterTbl = QtWidgets.QPushButton(MYSQL_MAINWINDOW)
         self.btnAlterTbl.setGeometry(QtCore.QRect(20, 300, 161, 31))
+        self.btnAlterTbl.clicked.connect(self.altertbl)
         font = QtGui.QFont()
         font.setFamily("Georgia")
         font.setPointSize(19)

@@ -37,6 +37,7 @@ class Ui_MYSQL_CREATEDB(object):
         try:
             mycursor.execute(query)
             self.ShowMessageBox('SUCCESSFULL','DB HAS BEEN CREATED SUCESSFULLY')
+            mydb.commit
             sys.exit()
 
         except Exception:
