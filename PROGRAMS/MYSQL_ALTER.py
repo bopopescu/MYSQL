@@ -11,6 +11,80 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 import sys
 
 class Ui_MYSQL_ALTER(object):
+    def ShowMessageBox(self,title,message):
+        msgbox = QtWidgets.QMessageBox()
+        msgbox.setIcon(QtWidgets.QMessageBox.Information)
+        msgbox.setWindowTitle(title)
+        msgbox.setText(message)
+        msgbox.exec_()
+    def ShowMessageBox_(self,title,message):
+        msgbox = QtWidgets.QMessageBox()
+        msgbox.setIcon(QtWidgets.QMessageBox.Warning)
+        msgbox.setWindowTitle(title)
+        msgbox.setText(message)
+        msgbox.exec_()
+    def tblname(self):
+        self.tablname=self.txttablname.text()
+
+
+    def add(self):
+        col1name=self.txtcolumn1name.text()
+        col1type=self.txtcolumn1type.text()
+        col2name=self.txtcolumn2name.text()
+        col2type=self.txtcolumn2type.text()
+        col3name=self.txtcolumn3name.text()
+        col3type=self.txtcolumn3type.text()
+        col4name=self.txtcolumn4name.text()
+        col4type=self.txtcolumn4type.text()
+        print(self.tablname)
+        if col1name=='' and col1type=='' and col2name=='' and col2type== '' and  col3name=='' and col3type=='' and col4name=='' and col4type=='':
+            self.ShowMessageBox_('FAILED','PLEASE ENTER VALUES')
+
+        elif col1name==col2name==col3name==col4name:
+            self.ShowMessageBox_('FAILED','ALL COLUMN NAMES ARE EQUAL')
+        else:
+            query= 'alter table {} add ({} {},{} {},{} {},{} {}'.format(self.tablname,col1name,col1type,col2name,col2type,col3name,col3type,col4name,col4type)
+            query=query.rstrip(' ,')
+            temp=query+')'
+            query=''
+            list=[]
+            start=0
+            for i in range(len(temp)):
+                if temp[i]==',' and temp[i-1]==' ' and temp[i-2]==',':
+                    list.append(i)
+                
+            for j in range(len(list)):
+                stop=list[j]-1
+                query=query+temp[start:stop]
+                start=stop+2
+                query=query+temp[start::] 
+            try:
+                mycursor.execute(query)
+                self.ShowMessageBox('successfull','successfully altered table')
+                
+                sys.exit()
+
+            except Exception:
+                self.ShowMessageBox_('error','error while altering table')
+    def mod(self):
+        modcol1name=self.txtmodcol1name.text()
+        modcol1type=self.txtmodcol1type.text()
+        modcol2name=self.txtmodcol2name.text()
+        modcol2type=self.txtmodcol2type.text()
+        modcol3name=self.txtmodcol3name.text()
+        modcol3type=self.txtmodcol3type.text()
+        modcol4name=self.txtmodcol4name.text()
+        modcol4type=self.txtmodcol4type.text()
+
+    def cancel(self):
+         sys.exit()
+
+
+
+
+
+
+
     def setupUi(self, MYSQL_ALTER):
         MYSQL_ALTER.setObjectName("MYSQL_ALTER")
         MYSQL_ALTER.resize(970, 634)
@@ -121,6 +195,8 @@ class Ui_MYSQL_ALTER(object):
         self.btnadd = QtWidgets.QPushButton(self.addframe)
         self.btnadd.setGeometry(QtCore.QRect(70, 380, 112, 32))
         self.btnadd.setObjectName("btnadd")
+        self.btnadd.clicked.connect(self.tblname)
+        self.btnadd.clicked.connect(self.add)
         self.label_6.raise_()
         self.label_14.raise_()
         self.txtcolumn1type.raise_()
@@ -341,6 +417,7 @@ class Ui_MYSQL_ALTER(object):
         self.btncancel = QtWidgets.QPushButton(MYSQL_ALTER)
         self.btncancel.setGeometry(QtCore.QRect(820, 600, 112, 32))
         self.btncancel.setObjectName("btncancel")
+        self.btncancel.clicked.connect(self.cancel)
         self.delframe.raise_()
         self.modifyframe.raise_()
         self.addframe.raise_()
