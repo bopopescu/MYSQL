@@ -11,17 +11,32 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 import sys
 class Ui_MYSQL_CREATETBL(object):
     def ShowMessageBox(self,title,message):
+        self.err_value=0
         msgbox = QtWidgets.QMessageBox()
         msgbox.setIcon(QtWidgets.QMessageBox.Information)
         msgbox.setWindowTitle(title)
         msgbox.setText(message)
         msgbox.exec_()
+        
     def ShowMessageBox_(self,title,message):
+        
         msgbox = QtWidgets.QMessageBox()
         msgbox.setIcon(QtWidgets.QMessageBox.Warning)
         msgbox.setWindowTitle(title)
         msgbox.setText(message)
         msgbox.exec_()
+    
+    
+
+    def error_value(self):
+        Ui_MYSQL_CREATETBL.error_value=self.value
+        print(Ui_MYSQL_CREATETBL.error_value)
+        
+        
+        
+
+    
+
 
     def createtbl(self):
         import mysql.connector
@@ -37,10 +52,12 @@ class Ui_MYSQL_CREATETBL(object):
         col4name=self.txtcolumn4name.text()
         col4type=self.txtcolumn4type.text()
         if col1name=='' and col1type=='' and col2name=='' and col2type== '' and  col3name=='' and col3type=='' and col4name=='' and col4type=='':
+            self.value=1
+            Ui_MYSQL_CREATETBL.error_value(self)
             self.ShowMessageBox_('FAILED','PLEASE ENTER VALUES')
-
         elif col1name==col2name==col3name==col4name:
             self.ShowMessageBox_('FAILED','ALL COLUMN NAMES ARE EQUAL')
+            
         else:
             query='create table {}({} {},{} {},{} {},{} {}'.format(tablename,col1name,col1type,col2name,col2type,col3name,col3type,col4name,col4type)
             query=query.rstrip(' ,')

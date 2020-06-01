@@ -19,6 +19,7 @@ class Ui_MYSQL_MAINWINDOW(object):
         self.ui = Ui_MYSQL_CREATEDB()
         self.ui.setupUi(self.MYSQL_CREATEDB)
         self.MYSQL_CREATEDB.show()
+
     def createtbl(self):
         self.MYSQL_CREATETBL = QtWidgets.QWidget()
         self.ui = Ui_MYSQL_CREATETBL()
@@ -50,7 +51,6 @@ class Ui_MYSQL_MAINWINDOW(object):
         font.setItalic(False)
         self.btnCreateDB.setFont(font)
         self.btnCreateDB.setObjectName("btnCreateDB")
-        self.btnCreateDB.clicked.connect(self.createdb)
         self.btnCreateTbl = QtWidgets.QPushButton(MYSQL_MAINWINDOW)
         self.btnCreateTbl.setGeometry(QtCore.QRect(20, 180, 171, 31))
         font = QtGui.QFont()
@@ -59,7 +59,6 @@ class Ui_MYSQL_MAINWINDOW(object):
         font.setItalic(False)
         self.btnCreateTbl.setFont(font)
         self.btnCreateTbl.setObjectName("btnCreateTbl")
-        self.btnCreateTbl.clicked.connect(self.createtbl)
         self.btnInsertValues = QtWidgets.QPushButton(MYSQL_MAINWINDOW)
         self.btnInsertValues.setGeometry(QtCore.QRect(20, 220, 301, 31))
         font = QtGui.QFont()

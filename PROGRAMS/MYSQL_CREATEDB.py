@@ -38,13 +38,13 @@ class Ui_MYSQL_CREATEDB(object):
             mycursor.execute(query)
             self.ShowMessageBox('SUCCESSFULL','DB HAS BEEN CREATED SUCESSFULLY')
             mydb.commit
-            sys.exit()
+            MYSQL_CREATEDB.hide()
 
         except Exception:
             self.ShowMessageBox_('FAILED','FAILED TO CREATE  DB. RECHECK VALUES!!')
     
     def cancel(self):
-        sys.exit()
+        pass
 
 
 
@@ -103,3 +103,4 @@ if __name__ == "__main__":
     ui.setupUi(MYSQL_CREATEDB)
     MYSQL_CREATEDB.show()
     sys.exit(app.exec_())
+
