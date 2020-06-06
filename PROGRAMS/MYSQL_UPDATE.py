@@ -11,6 +11,182 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 
 class Ui_MYSQL_UPDATE(object):
+    def ShowMessageBox(self,title,message):
+        value=2
+        msgbox = QtWidgets.QMessageBox()
+        msgbox.setIcon(QtWidgets.QMessageBox.Information)
+        msgbox.setWindowTitle(title)
+        msgbox.setText(message)
+        msgbox.exec_()
+    
+    
+    def ShowMessageBox_(self,title,message):
+        msgbox = QtWidgets.QMessageBox()
+        msgbox.setIcon(QtWidgets.QMessageBox.Warning)
+        msgbox.setWindowTitle(title)
+        msgbox.setText(message)
+        msgbox.exec_()
+        self.MYSQL_UPDATE = QtWidgets.QWidget()
+        self.ui = Ui_MYSQL_UPDATE()
+        self.ui.setupUi(self.MYSQL_UPDATE)
+        self.MYSQL_UPDATE.show()
+    
+    def prival(self):
+        self.privall=1
+
+    def prival2(self):
+        self.privall=2
+
+    def prival3(self):
+        self.privall=3
+
+    def prival4(self):
+        self.privall=4
+    
+    def val(self):
+        self.tblname=self.txttblname.text()
+        self.val1=self.txtvalue1.text()
+        self.val2=self.txtvalue2.text()
+        self.val3=self.txtvalue3.text()
+        self.val4=self.txtvalue4.text()
+        self.vallist=[self.val1,self.val2,self.val3,self.val4]
+    
+    def tblcheck(self):
+        try:
+            import mysql.connector
+            mydb=mysql.connector.connect(host='localhost', user='root',passwd='logon@123',database='python')
+            mycursor=mydb.cursor()
+            query='show tables'
+            mycursor.execute(query)
+            res=mycursor.fetchall()
+            tbllist=[]
+            for i in res:
+                for j in i:
+                    tbllist.append(j.lower())
+            
+            a=self.tblname
+            if self.txttblname.text()=='':
+                self.ShowMessageBox_('FAILED','ENTER TABLE NAME')
+                return
+            elif a.lower() in tbllist:
+                self.fetchingcolumns()
+            
+            else:
+                self.ShowMessageBox_('ERROR','ENTERED TABLE DOESNT EXIST IN DB')
+                return
+        except Exception:
+            return
+        
+        
+
+    def fetchingcolumns(self):
+        
+        import mysql.connector
+        mydb=mysql.connector.connect(host='localhost', user='root',passwd='logon@123',database='python')
+        mycursor=mydb.cursor()
+        try:
+            self.query='show columns from {}'.format(self.txttblname.text())
+            mycursor.execute(self.query)
+            self.response=mycursor.fetchall()
+            self.list=[]
+            for i in self.response:
+                self.list.append(i[0])
+            if self.privall==1:
+                self.prikey1()
+            if self.privall==2:
+                self.prikey2()
+            if self.privall==3:
+                self.prikey3()
+            if self.privall==4:
+                self.prikey4()
+
+        except Exception:
+            return
+    
+
+    def prikey1(self):
+        self.primcolname=self.list[0]
+        self.primval=self.txtvalue1.text()
+    def prikey2(self):
+        self.primcolname=self.list[1]
+        self.primval=self.txtvalue2.text()
+    def prikey3(self):
+        self.primcolname=self.list[2]
+        self.primval=self.txtvalue3.text()
+    def prikey4(self):
+        self.primcolname=self.list[3]
+        self.primval=self.txtvalue4.text()
+    
+    def finalval(self):
+        try:
+            self.tblname=self.txttblname.text()
+            self.val1=self.txtvalue1.text()
+            self.val2=self.txtvalue2.text()
+            self.val3=self.txtvalue3.text()
+            self.val4=self.txtvalue4.text()
+            self.col1=self.list[0]
+            self.col2=self.list[1]
+            self.col3=self.list[2]
+            self.col4=self.list[3]
+            query=''
+            list1=[]
+            for i in self.vallist:
+                if i!='':
+                    query=query+','+ i
+                    list1.append(i)
+
+                else:
+                    continue
+            self.query=query.lstrip(',')
+            self.list1=list1
+            
+            set_command=''
+            
+            for i in range(len(self.vallist)):
+                for j in self.list1:
+                    if self.vallist[i]==j:
+                        for a in range(len(self.list)):
+
+                            if i==a and j!=self.primval:
+                                set_command=set_command+'{}="{}",'.format(self.list[a],j)
+            
+            self.set_command=set_command.rstrip(',')
+        except Exception:
+            return
+
+
+            
+        
+        
+    def update(self):
+        print('he')
+        import mysql.connector
+        mydb=mysql.connector.connect(host='localhost', user='root',passwd='logon@123',database='python')
+        mycursor=mydb.cursor()
+        try:
+            self.val()
+            self.tblcheck()
+    
+            if self.primval!='':
+                try:
+                    self.finalval()
+                    query='update {} set '.format(self.txttblname.text())
+                    query=query+"{} where ".format(self.set_command)
+                    query=query+"{}={}".format(self.primcolname,self.primval)
+                    mycursor.execute(query)
+                    mydb.commit()
+                    self.ShowMessageBox('SUCCESSFULL','SUCCESSFULLY UPDATED TABLE')
+                except Exception:
+                    self.ShowMessageBox_('FAILED','ERROR WHILE UPDATING TABLE.PLEASE RE-CHECK VALUE')
+
+            else:
+                self.ShowMessageBox_('FAILED','SELECT PRIMARY KEY')
+            
+        except Exception:
+            return
+
+        
+    
     def setupUi(self, MYSQL_UPDATE):
         MYSQL_UPDATE.setObjectName("MYSQL_UPDATE")
         MYSQL_UPDATE.resize(754, 488)
@@ -24,6 +200,7 @@ class Ui_MYSQL_UPDATE(object):
         self.btnupdate = QtWidgets.QPushButton(MYSQL_UPDATE)
         self.btnupdate.setGeometry(QtCore.QRect(620, 130, 112, 32))
         self.btnupdate.setObjectName("btnupdate")
+        self.btnupdate.clicked.connect(self.update)
         self.label_7 = QtWidgets.QLabel(MYSQL_UPDATE)
         self.label_7.setGeometry(QtCore.QRect(40, 290, 171, 31))
         font = QtGui.QFont()
@@ -86,15 +263,19 @@ class Ui_MYSQL_UPDATE(object):
         self.primkey1 = QtWidgets.QCheckBox(self.frame)
         self.primkey1.setGeometry(QtCore.QRect(440, 120, 101, 31))
         self.primkey1.setObjectName("primkey1")
+        self.primkey1.toggled.connect(self.prival)
         self.primkey3 = QtWidgets.QCheckBox(self.frame)
         self.primkey3.setGeometry(QtCore.QRect(440, 220, 101, 31))
         self.primkey3.setObjectName("primkey3")
+        self.primkey3.toggled.connect(self.prival3)
         self.primkey2 = QtWidgets.QCheckBox(self.frame)
         self.primkey2.setGeometry(QtCore.QRect(440, 170, 101, 31))
         self.primkey2.setObjectName("primkey2")
+        self.primkey2.toggled.connect(self.prival2)
         self.primkey4 = QtWidgets.QCheckBox(self.frame)
         self.primkey4.setGeometry(QtCore.QRect(440, 270, 101, 31))
         self.primkey4.setObjectName("primkey4")
+        self.primkey4.toggled.connect(self.prival4)
         self.primkey3.raise_()
         self.primkey2.raise_()
         self.primkey1.raise_()

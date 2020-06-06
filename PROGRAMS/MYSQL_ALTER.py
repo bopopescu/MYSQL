@@ -62,6 +62,7 @@ class Ui_MYSQL_ALTER(object):
                 query=query+temp[start:stop]
                 start=stop+2
             query=query+temp[start::] 
+            print(query)
             if query=='':
                 self.ShowMessageBox_('error','error while stripping query')
             else:
@@ -69,7 +70,6 @@ class Ui_MYSQL_ALTER(object):
                     mycursor.execute(query)
                     self.ShowMessageBox('successfull','successfully altered table')
                     mydb.commit()
-                    sys.exit()
         
 
                 except Exception:
@@ -140,7 +140,7 @@ class Ui_MYSQL_ALTER(object):
                        
                         self.ShowMessageBox('successfull','successfully modified table')
                         mydb.commit()
-                        self.close()
+
                     except Exception:
                         self.ShowMessageBox_('error','error while modifying')
 
@@ -173,7 +173,6 @@ class Ui_MYSQL_ALTER(object):
                 mycursor.execute(query)
                 self.ShowMessageBox('successfull','successfully deleted column')
                 mydb.commit()
-                sys.exit()
             except Exception:
                 self.ShowMessageBox_('error','error while deleting column')
 

@@ -11,6 +11,64 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 
 class Ui_MYSQL_INSERT(object):
+    def ShowMessageBox(self,title,message):
+        value=2
+        msgbox = QtWidgets.QMessageBox()
+        msgbox.setIcon(QtWidgets.QMessageBox.Information)
+        msgbox.setWindowTitle(title)
+        msgbox.setText(message)
+        msgbox.exec_()
+    
+    
+    def ShowMessageBox_(self,title,message):
+        msgbox = QtWidgets.QMessageBox()
+        msgbox.setIcon(QtWidgets.QMessageBox.Warning)
+        msgbox.setWindowTitle(title)
+        msgbox.setText(message)
+        msgbox.exec_()
+        self.MYSQL_INSERT = QtWidgets.QWidget()
+        self.ui = Ui_MYSQL_INSERT()
+        self.ui.setupUi(self.MYSQL_INSERT)
+        self.MYSQL_INSERT.show()
+    
+    def insert(self):
+        import mysql.connector
+        mydb=mysql.connector.connect(host='localhost', user='root',passwd='logon@123',database='python')
+        mycursor=mydb.cursor()
+        tblname=self.txttblname.text()
+        val1=self.txtvalue1.text()
+        val2=self.txtvalue2.text()
+        val3=self.txtvalue3.text()
+        val4=self.txtvalue4.text()
+        query='show tables'
+        mycursor.execute(query)
+        res=mycursor.fetchall()
+        list=[]
+        for i in res:
+            for j in i:
+                list.append(j)
+
+        if tblname not in list:
+            if tblname=='':
+                self.ShowMessageBox_('FAILED',"ENTER TABLE NAME")
+            else:
+                self.ShowMessageBox_('FAILED',"ENTERED TABLE NAME DOESN'T EXIST IN DB")
+        else:
+            if (val1=='') or (val2=='') or (val3=='') or (val4==''):
+                self.ShowMessageBox_('FAILED','ENTER VALUES OF ALL 4 COLUMNS')
+            elif val1==val2==val3==val4:
+                self.ShowMessageBox_('FAILED',('ALL VALUES ARE EQUAL. PLEASE ENTER ACCORDING TO TABLE CONSTRAINTS'))
+            else:
+                query='insert into {} values("{}","{}","{}","{}")'.format(tblname,val1,val2,val3,val4)
+                try:
+                    print(query)
+                    mycursor.execute(query)
+                    mydb.commit()
+                    self.ShowMessageBox('SUCCESSFULL','SUCCESSFULLY INSERTED VALUES INTO TABLE')
+                except Exception:
+                    self.ShowMessageBox('FAILED','ERROR WHILE INSERTING VALUES INTO TABLE')
+
+
     def setupUi(self, MYSQL_INSERT):
         MYSQL_INSERT.setObjectName("MYSQL_INSERT")
         MYSQL_INSERT.resize(579, 445)
@@ -96,6 +154,7 @@ class Ui_MYSQL_INSERT(object):
         self.btninsert = QtWidgets.QPushButton(MYSQL_INSERT)
         self.btninsert.setGeometry(QtCore.QRect(460, 120, 112, 32))
         self.btninsert.setObjectName("btninsert")
+        self.btninsert.clicked.connect(self.insert)
         self.frame.raise_()
         self.label.raise_()
         self.btncancel.raise_()

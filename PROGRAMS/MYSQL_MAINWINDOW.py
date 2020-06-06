@@ -77,7 +77,7 @@ class Ui_MYSQL_MAINWINDOW(object):
         self.btnUpdateTbl.setObjectName("btnUpdateTbl")
         self.btnAlterTbl = QtWidgets.QPushButton(MYSQL_MAINWINDOW)
         self.btnAlterTbl.setGeometry(QtCore.QRect(20, 300, 161, 31))
-        self.btnAlterTbl.clicked.connect(self.altertbl)
+
         font = QtGui.QFont()
         font.setFamily("Georgia")
         font.setPointSize(19)

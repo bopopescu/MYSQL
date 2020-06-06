@@ -25,6 +25,10 @@ class Ui_MYSQL_CREATEDB(object):
         msgbox.setWindowTitle(title)
         msgbox.setText(message)
         msgbox.exec_()
+        self.MYSQL_CREATEDB = QtWidgets.QWidget()
+        self.ui = Ui_MYSQL_CREATEDB()
+        self.ui.setupUi(self.MYSQL_CREATEDB)
+        self.MYSQL_CREATEDB.show()
 
 
     def createdb(self):
@@ -37,8 +41,7 @@ class Ui_MYSQL_CREATEDB(object):
         try:
             mycursor.execute(query)
             self.ShowMessageBox('SUCCESSFULL','DB HAS BEEN CREATED SUCESSFULLY')
-            mydb.commit
-            MYSQL_CREATEDB.hide()
+            mydb.commit()
 
         except Exception:
             self.ShowMessageBox_('FAILED','FAILED TO CREATE  DB. RECHECK VALUES!!')
