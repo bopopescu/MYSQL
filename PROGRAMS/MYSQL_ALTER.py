@@ -23,6 +23,10 @@ class Ui_MYSQL_ALTER(object):
         msgbox.setWindowTitle(title)
         msgbox.setText(message)
         msgbox.exec_()
+        self.MYSQL_ALTER = QtWidgets.QWidget()
+        self.ui = Ui_MYSQL_ALTER()
+        self.ui.setupUi(self.MYSQL_ALTER)
+        self.MYSQL_ALTER.show()
     def tblname(self):
         self.tablname=self.txttablname.text()
 
@@ -46,34 +50,57 @@ class Ui_MYSQL_ALTER(object):
 
         elif col1name==col2name==col3name==col4name:
             self.ShowMessageBox_('FAILED','ALL COLUMN NAMES ARE EQUAL')
+            self.txtcolumn1name.clear()
+            self.txtcolumn1type.clear()
+            self.txtcolumn2name.clear()
+            self.txtcolumn3name.clear()
+            self.txtcolumn3type.clear()
+            self.txtcolumn4name.clear()
+            self.txtcolumn4type.clear()
         else:
             query= 'alter table {} add ({} {},{} {},{} {},{} {}'.format(self.tablname,col1name,col1type,col2name,col2type,col3name,col3type,col4name,col4type)
             query=query.rstrip(' ,')
             temp=query+')'
-            query=''
+            query=query+')'
             list=[]
             start=0
             for i in range(len(temp)):
                 if temp[i]==',' and temp[i-1]==' ' and temp[i-2]==',':
                     list.append(i)
-                
-            for j in range(len(list)):
-                stop=list[j]-1
-                query=query+temp[start:stop]
-                start=stop+2
-            query=query+temp[start::] 
-            print(query)
-            if query=='':
-                self.ShowMessageBox_('error','error while stripping query')
-            else:
-                try:
-                    mycursor.execute(query)
-                    self.ShowMessageBox('successfull','successfully altered table')
-                    mydb.commit()
+            
+            if len(list)!=0: 
+                query=''  
+                for j in range(len(list)):
+                    stop=list[j]-1
+                    query=query+temp[start:stop]
+                    start=stop+2
+                    query=query+temp[start::] 
+                    
+            try:
+            
+                mycursor.execute(query)
+                self.ShowMessageBox('successfull','successfully altered table')
+                mydb.commit()
+                self.txttablname.clear()
+                self.txtcolumn1name.clear()
+                self.txtcolumn1type.clear()
+                self.txtcolumn2name.clear()
+                self.txtcolumn3name.clear()
+                self.txtcolumn3type.clear()
+                self.txtcolumn4name.clear()
+                self.txtcolumn4type.clear()
         
 
-                except Exception:
-                    self.ShowMessageBox_('error','error while altering table')
+            except Exception:
+                self.ShowMessageBox_('error','error while altering table')
+                self.txttablname.clear()
+                self.txtcolumn1name.clear()
+                self.txtcolumn1type.clear()
+                self.txtcolumn2name.clear()
+                self.txtcolumn3name.clear()
+                self.txtcolumn3type.clear()
+                self.txtcolumn4name.clear()
+                self.txtcolumn4type.clear()
     def mod(self):
         import mysql.connector
         mydb=mysql.connector.connect(host='localhost', user='root',passwd='logon@123',database='python')
@@ -88,7 +115,7 @@ class Ui_MYSQL_ALTER(object):
             for i in response:
                 list.append(i[0])
             if len(list)<4:
-                self.ShowMessageBox_('error','the entered table has columns<4 or 4<columns')
+                self.ShowMessageBox_('error','the entered table has columns<4')
             else:
                 col1=list[0]
                 col2=list[1]
@@ -107,8 +134,17 @@ class Ui_MYSQL_ALTER(object):
                     self.ShowMessageBox_('ERROR','PLEASE ENTER VALUSE')
                 elif modcol1name==modcol2name==modcol3name==modcol4name:
                     self.ShowMessageBox_('ERROR','COLUMN NAMES ARE EQUAL!!')
+                    self.txtmodcol1name.clear()
+                    self.txtmodcol1type.clear()
+                    self.txtmodcol2name.clear()
+                    self.txtmodcol2type.clear()
+                    self.txtmodcol3name.clear()
+                    self.txtmodcol3type.clear()
+                    self.txtmodcol4name.clear()
+                    self.txtmodcol4type.clear()
                 elif modcol1name=='':
                     self.ShowMessageBox_('ERROR','COLUMN 1 CANNOT BE EMPTY')
+
                 else:
                     query='alter table {} change {} {} {},change {} {} {},change {} {} {},change {} {} {}'.format(self.tablname,col1,modcol1name,modcol1type,col2,modcol2name,modcol2type,col3,modcol3name,modcol3type,col4,modcol4name,modcol4type)
                     temp=query
@@ -140,9 +176,27 @@ class Ui_MYSQL_ALTER(object):
                        
                         self.ShowMessageBox('successfull','successfully modified table')
                         mydb.commit()
+                        self.txttablname.clear()
+                        self.txtmodcol1name.clear()
+                        self.txtmodcol1type.clear()
+                        self.txtmodcol2name.clear()
+                        self.txtmodcol2type.clear()
+                        self.txtmodcol3name.clear()
+                        self.txtmodcol3type.clear()
+                        self.txtmodcol4name.clear()
+                        self.txtmodcol4type.clear()
 
                     except Exception:
                         self.ShowMessageBox_('error','error while modifying')
+                        self.txttablname.clear()
+                        self.txtmodcol1name.clear()
+                        self.txtmodcol1type.clear()
+                        self.txtmodcol2name.clear()
+                        self.txtmodcol2type.clear()
+                        self.txtmodcol3name.clear()
+                        self.txtmodcol3type.clear()
+                        self.txtmodcol4name.clear()
+                        self.txtmodcol4type.clear()
 
 
     def dele(self):
@@ -168,17 +222,29 @@ class Ui_MYSQL_ALTER(object):
             self.ShowMessageBox_('error','enter column name to delete')      
         elif col1name==col2name==col3name==col4name:
             self.ShowMessageBox_('error','all column names are same')        
+            self.txtdelcol1name.clear()
+            self.txtdelcol2name.clear()
+            self.txtdelcol3name.clear()
+            self.txtdelcol4name.clear()
         else:
             try:
                 mycursor.execute(query)
                 self.ShowMessageBox('successfull','successfully deleted column')
                 mydb.commit()
+                self.txtdelcol1name.clear()
+                self.txtdelcol2name.clear()
+                self.txtdelcol3name.clear()
+                self.txtdelcol4name.clear()
             except Exception:
                 self.ShowMessageBox_('error','error while deleting column')
+                self.txtdelcol1name.clear()
+                self.txtdelcol2name.clear()
+                self.txtdelcol3name.clear()
+                self.txtdelcol4name.clear()
 
 
     def cancel(self):
-         sys.exit()
+         pass
 
 
 

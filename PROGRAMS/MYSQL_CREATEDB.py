@@ -8,7 +8,6 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets 
-from PyQt5.QtWidgets import QMessageBox
 
 from tkinter import messagebox
 import sys
@@ -36,16 +35,29 @@ class Ui_MYSQL_CREATEDB(object):
         mydb=mysql.connector.connect(host='localhost', user='root',passwd='logon@123')
         mycursor=mydb.cursor() 
         db_name=self.txtDBname.text()
+        query='show databases'
+        mycursor.execute(query)
+        response=mycursor.fetchall()
+        tbllist=[]
         query='create database {}'.format(db_name)
-        
-        try:
-            mycursor.execute(query)
-            self.ShowMessageBox('SUCCESSFULL','DB HAS BEEN CREATED SUCESSFULLY')
-            mydb.commit()
+        for i in response:
+            for j in i:
+                tbllist.append(j.lower())
+        if db_name!='' and db_name.lower() in dblist:
+            try:
+                mycursor.execute(query)
+                self.ShowMessageBox('SUCCESSFULL','DB HAS BEEN CREATED SUCESSFULLY')
+                mydb.commit()
+                self.txtDBname.clear()
 
-        except Exception:
-            self.ShowMessageBox_('FAILED','FAILED TO CREATE  DB. RECHECK VALUES!!')
-    
+            except Exception:
+                self.ShowMessageBox_('FAILED','FAILED TO CREATE  DB. RECHECK VALUES!!')
+                self.txtDBname.clear()
+        else:
+            if db_name=='':
+                self.ShowMessageBox_('FAILED','ENTER TABLE NAME')
+            else:
+                self.ShowMessageBox_('FAILED',"ENTERED TABLE NAME DOESN'T EXIST IN DB")
     def cancel(self):
         pass
 

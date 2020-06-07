@@ -13,6 +13,7 @@ from subprocess import call
 from MYSQL_CREATEDB import Ui_MYSQL_CREATEDB
 from MYSQL_CREATETBL import Ui_MYSQL_CREATETBL
 from MYSQL_ALTER import Ui_MYSQL_ALTER
+from MYSQL_UPDATE import Ui_MYSQL_UPDATE
 class Ui_MYSQL_MAINWINDOW(object):
     def createdb(self):
         self.MYSQL_CREATEDB = QtWidgets.QWidget()

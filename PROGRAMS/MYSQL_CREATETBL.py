@@ -12,7 +12,6 @@ import sys
 
 class Ui_MYSQL_CREATETBL(object):
     def ShowMessageBox(self,title,message):
-        value=2
         msgbox = QtWidgets.QMessageBox()
         msgbox.setIcon(QtWidgets.QMessageBox.Information)
         msgbox.setWindowTitle(title)
@@ -65,41 +64,63 @@ class Ui_MYSQL_CREATETBL(object):
             for j in i:
                 list.append(j)
         if tablename in list:
-            self.ShowMessageBox_('FAILED','TABLE WITH THE GUVEN ALDREADY EXIST')
+            self.ShowMessageBox_('FAILED','TABLE WITH THE GIVEN ALDREADY EXIST')
+            self.txttblname.clear()
 
         elif col1name=='' and col1type=='' and col2name=='' and col2type== '' and  col3name=='' and col3type=='' and col4name=='' and col4type=='':
             self.ShowMessageBox_('FAILED','PLEASE ENTER VALUES')
         elif col1name==col2name==col3name==col4name:
             self.ShowMessageBox_('FAILED','ALL COLUMN NAMES ARE EQUAL')
+            self.txtcolumn1name.clear()
+            self.txtcolumn2name.clear()
+            self.txtcolumn2type.clear()
+            self.txtcolumn3name.clear()
+            self.txtcolumn4name.clear()
+            self.txtcolumn4type.clear()    
             
         else:
             query='create table {}({} {},{} {},{} {},{} {}'.format(tablename,col1name,col1type,col2name,col2type,col3name,col3type,col4name,col4type)
             query=query.rstrip(' ,')
             temp=query+')'
-            query=''
+            query=query+')'
             list=[]
             start=0
             for i in range(len(temp)):
                 if temp[i]==',' and temp[i-1]==' ' and temp[i-2]==',':
                     list.append(i)
                 
-            for j in range(len(list)):
-                stop=list[j]-1
-                query=query+temp[start:stop]
-                start=stop+2
-                query=query+temp[start::]    
+            if len(list)!=0:
+                query=''
+                for j in range(len(list)):
+                
+                    stop=list[j]-1
+                    query=query+temp[start:stop]
+                    start=stop+2
+                    query=query+temp[start::]    
+            
             try:
                 mycursor.execute(query)
-                self.ShowMessageBox('successfull','successfully created table')
                 mydb.commit()
-                
-                sys.exit()
-
+                self.ShowMessageBox('successfull','successfully created table')
+                self.txttblname.clear()
+                self.txtcolumn1name.clear()
+                self.txtcolumn2name.clear()
+                self.txtcolumn2type.clear()
+                self.txtcolumn3name.clear()
+                self.txtcolumn4name.clear()
+                self.txtcolumn4type.clear()    
             except Exception:
                 self.ShowMessageBox_('error','error while creating table')
-    
+                self.txttblname.clear()
+                self.txtcolumn1name.clear()
+                self.txtcolumn2name.clear()
+                self.txtcolumn2type.clear()
+                self.txtcolumn3name.clear()
+                self.txtcolumn4name.clear()
+                self.txtcolumn4type.clear()    
     def cancel(self):
-        sys.exit()
+        pass
+        
             
 
 

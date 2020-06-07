@@ -12,7 +12,6 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 class Ui_MYSQL_UPDATE(object):
     def ShowMessageBox(self,title,message):
-        value=2
         msgbox = QtWidgets.QMessageBox()
         msgbox.setIcon(QtWidgets.QMessageBox.Information)
         msgbox.setWindowTitle(title)
@@ -32,6 +31,7 @@ class Ui_MYSQL_UPDATE(object):
         self.MYSQL_UPDATE.show()
     
     def prival(self):
+        print('1')
         self.privall=1
 
     def prival2(self):
@@ -73,6 +73,7 @@ class Ui_MYSQL_UPDATE(object):
             
             else:
                 self.ShowMessageBox_('ERROR','ENTERED TABLE DOESNT EXIST IN DB')
+                self.txttblname.clear()
                 return
         except Exception:
             return
@@ -101,10 +102,10 @@ class Ui_MYSQL_UPDATE(object):
                 self.prikey4()
 
         except Exception:
-            return
-    
+            return    
 
     def prikey1(self):
+    
         self.primcolname=self.list[0]
         self.primval=self.txtvalue1.text()
     def prikey2(self):
@@ -158,8 +159,7 @@ class Ui_MYSQL_UPDATE(object):
             
         
         
-    def update(self):
-        print('he')
+    def updatetbl(self):
         import mysql.connector
         mydb=mysql.connector.connect(host='localhost', user='root',passwd='logon@123',database='python')
         mycursor=mydb.cursor()
@@ -176,8 +176,18 @@ class Ui_MYSQL_UPDATE(object):
                     mycursor.execute(query)
                     mydb.commit()
                     self.ShowMessageBox('SUCCESSFULL','SUCCESSFULLY UPDATED TABLE')
+                    self.txttblname.clear()
+                    self.txtvalue1.clear()
+                    self.txtvalue2.clear()
+                    self.txtvalue3.clear()
+                    self.txtvalue4.clear()
                 except Exception:
                     self.ShowMessageBox_('FAILED','ERROR WHILE UPDATING TABLE.PLEASE RE-CHECK VALUE')
+                    self.txttblname.clear()
+                    self.txtvalue1.clear()
+                    self.txtvalue2.clear()
+                    self.txtvalue3.clear()
+                    self.txtvalue4.clear()
 
             else:
                 self.ShowMessageBox_('FAILED','SELECT PRIMARY KEY')
@@ -200,7 +210,7 @@ class Ui_MYSQL_UPDATE(object):
         self.btnupdate = QtWidgets.QPushButton(MYSQL_UPDATE)
         self.btnupdate.setGeometry(QtCore.QRect(620, 130, 112, 32))
         self.btnupdate.setObjectName("btnupdate")
-        self.btnupdate.clicked.connect(self.update)
+        self.btnupdate.clicked.connect(self.updatetbl)
         self.label_7 = QtWidgets.QLabel(MYSQL_UPDATE)
         self.label_7.setGeometry(QtCore.QRect(40, 290, 171, 31))
         font = QtGui.QFont()

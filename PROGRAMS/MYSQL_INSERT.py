@@ -12,7 +12,6 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 class Ui_MYSQL_INSERT(object):
     def ShowMessageBox(self,title,message):
-        value=2
         msgbox = QtWidgets.QMessageBox()
         msgbox.setIcon(QtWidgets.QMessageBox.Information)
         msgbox.setWindowTitle(title)
@@ -53,20 +52,34 @@ class Ui_MYSQL_INSERT(object):
                 self.ShowMessageBox_('FAILED',"ENTER TABLE NAME")
             else:
                 self.ShowMessageBox_('FAILED',"ENTERED TABLE NAME DOESN'T EXIST IN DB")
+                self.txttblname.clear()
         else:
             if (val1=='') or (val2=='') or (val3=='') or (val4==''):
                 self.ShowMessageBox_('FAILED','ENTER VALUES OF ALL 4 COLUMNS')
             elif val1==val2==val3==val4:
                 self.ShowMessageBox_('FAILED',('ALL VALUES ARE EQUAL. PLEASE ENTER ACCORDING TO TABLE CONSTRAINTS'))
+                self.txtvalue1.clear()
+                self.txtvalue2.clear()
+                self.txtvalue3.clear()
+                self.txtvalue4.clear()
             else:
                 query='insert into {} values("{}","{}","{}","{}")'.format(tblname,val1,val2,val3,val4)
                 try:
-                    print(query)
                     mycursor.execute(query)
                     mydb.commit()
                     self.ShowMessageBox('SUCCESSFULL','SUCCESSFULLY INSERTED VALUES INTO TABLE')
+                    self.txttblname.clear()
+                    self.txtvalue1.clear()
+                    self.txtvalue2.clear()
+                    self.txtvalue3.clear()
+                    self.txtvalue4.clear()
                 except Exception:
                     self.ShowMessageBox('FAILED','ERROR WHILE INSERTING VALUES INTO TABLE')
+                    self.txttblname.clear()
+                    self.txtvalue1.clear()
+                    self.txtvalue2.clear()
+                    self.txtvalue3.clear()
+                    self.txtvalue4.clear()
 
 
     def setupUi(self, MYSQL_INSERT):
