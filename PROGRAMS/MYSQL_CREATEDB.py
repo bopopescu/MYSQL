@@ -38,12 +38,12 @@ class Ui_MYSQL_CREATEDB(object):
         query='show databases'
         mycursor.execute(query)
         response=mycursor.fetchall()
-        tbllist=[]
+        dblist=[]
         query='create database {}'.format(db_name)
         for i in response:
             for j in i:
-                tbllist.append(j.lower())
-        if db_name!='' and db_name.lower() in dblist:
+                dblist.append(j.lower())
+        if db_name!='' and db_name.lower() not in dblist:
             try:
                 mycursor.execute(query)
                 self.ShowMessageBox('SUCCESSFULL','DB HAS BEEN CREATED SUCESSFULLY')
@@ -55,9 +55,9 @@ class Ui_MYSQL_CREATEDB(object):
                 self.txtDBname.clear()
         else:
             if db_name=='':
-                self.ShowMessageBox_('FAILED','ENTER TABLE NAME')
+                self.ShowMessageBox_('FAILED','ENTER DB NAME')
             else:
-                self.ShowMessageBox_('FAILED',"ENTERED TABLE NAME DOESN'T EXIST IN DB")
+                self.ShowMessageBox_('FAILED',"ENTERED DB EXIST IN DB ALDREADY")
     def cancel(self):
         pass
 
