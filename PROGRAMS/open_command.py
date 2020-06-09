@@ -55,26 +55,10 @@ class deltbl(QtWidgets.QMainWindow, Ui_MYSQL_DELETEtable):
         self.setupUi(self)
 
 
-
-
-
-
-
-
-    
-
-
-
 def changeWindow(w1, w2):
     w1.hide()
     w2.show()
-    
-
-    
-    
-    
-
-    
+      
     
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)

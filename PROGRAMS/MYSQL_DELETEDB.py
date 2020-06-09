@@ -40,10 +40,10 @@ class Ui_MYSQL_DELETEDB(object):
         query='show databases'
         mycursor.execute(query)
         response=mycursor.fetchall()
-        tbllist=[]
+        dblist=[]
         for i in response:
             for j in i:
-                tbllist.append(j.lower())
+                dblist.append(j.lower())
 
         if self.dbname=='' or self.dbname=='query':
             if self.dbname=='':
@@ -51,7 +51,7 @@ class Ui_MYSQL_DELETEDB(object):
             else:
                 self.ShowMessageBox_('FAILED','DATABASE QUERY CANNOT BE DELETED')
                 self.txtDBname.clear()
-        elif self.dbname not in tbllist:
+        elif self.dbname not in dblist:
             self.ShowMessageBox_('FAILED',"ENTERED TABLE NAME DOESN'T EXIST IS DATABASE LIST")
             self.txtDBname.clear()
 
