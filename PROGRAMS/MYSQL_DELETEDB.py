@@ -35,7 +35,7 @@ class Ui_MYSQL_DELETEDB(object):
     def deldb(self):
         self.dbname=self.txtDBname.text()
         import mysql.connector
-        mydb=mysql.connector.connect(host='localhost', user='root',passwd='logon@123')
+        mydb=mysql.connector.connect(host='localhost', user='root',passwd='logon@123',auth_plugin='mysql_native_password')
         mycursor=mydb.cursor()
         query='show databases'
         mycursor.execute(query)

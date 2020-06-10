@@ -32,7 +32,7 @@ class Ui_MYSQL_CREATEDB(object):
 
     def createdb(self):
         import mysql.connector
-        mydb=mysql.connector.connect(host='localhost', user='root',passwd='logon@123')
+        mydb=mysql.connector.connect(host='localhost', user='root',passwd='logon@123',auth_plugin='mysql_native_password')
         mycursor=mydb.cursor() 
         db_name=self.txtDBname.text()
         query='show databases'

@@ -33,7 +33,7 @@ class Ui_MYSQL_ALTER(object):
 
     def add(self):
         import mysql.connector
-        mydb=mysql.connector.connect(host='localhost', user='root',passwd='logon@123',database='python')
+        mydb=mysql.connector.connect(host='localhost', user='root',passwd='logon@123',database='python',auth_plugin='mysql_native_password')
         mycursor=mydb.cursor()
         col1name=self.txtcolumn1name.text()
         col1type=self.txtcolumn1type.text()
@@ -103,7 +103,7 @@ class Ui_MYSQL_ALTER(object):
                 self.txtcolumn4type.clear()
     def mod(self):
         import mysql.connector
-        mydb=mysql.connector.connect(host='localhost', user='root',passwd='logon@123',database='python')
+        mydb=mysql.connector.connect(host='localhost', user='root',passwd='logon@123',database='python',auth_plugin='mysql_native_password')
         mycursor=mydb.cursor()
         if self.tablname=='':
             self.ShowMessageBox_('error','enter table name')
@@ -201,7 +201,7 @@ class Ui_MYSQL_ALTER(object):
 
     def dele(self):
         import mysql.connector
-        mydb=mysql.connector.connect(host='localhost', user='root',passwd='logon@123',database='python')
+        mydb=mysql.connector.connect(host='localhost', user='root',passwd='logon@123',database='python',auth_plugin='mysql_native_password')
         mycursor=mydb.cursor()
         col1name=self.txtdelcol1name.text()
         col2name=self.txtdelcol2name.text()

@@ -54,7 +54,7 @@ class Ui_MYSQL_UPDATE(object):
     def tblcheck(self):
         try:
             import mysql.connector
-            mydb=mysql.connector.connect(host='localhost', user='root',passwd='logon@123',database='python')
+            mydb=mysql.connector.connect(host='localhost', user='root',passwd='logon@123',database='python',auth_plugin='mysql_native_password')
             mycursor=mydb.cursor()
             query='show tables'
             mycursor.execute(query)
@@ -83,7 +83,7 @@ class Ui_MYSQL_UPDATE(object):
     def fetchingcolumns(self):
         
         import mysql.connector
-        mydb=mysql.connector.connect(host='localhost', user='root',passwd='logon@123',database='python')
+        mydb=mysql.connector.connect(host='localhost', user='root',passwd='logon@123',database='python',auth_plugin='mysql_native_password')
         mycursor=mydb.cursor()
         try:
             self.query='show columns from {}'.format(self.txttblname.text())
@@ -161,7 +161,7 @@ class Ui_MYSQL_UPDATE(object):
         
     def updatetbl(self):
         import mysql.connector
-        mydb=mysql.connector.connect(host='localhost', user='root',passwd='logon@123',database='python')
+        mydb=mysql.connector.connect(host='localhost', user='root',passwd='logon@123',database='python',auth_plugin='mysql_native_password')
         mycursor=mydb.cursor()
         try:
             self.val()

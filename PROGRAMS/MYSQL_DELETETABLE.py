@@ -34,7 +34,7 @@ class Ui_MYSQL_DELETEtable(object):
     def deltbl(self):
         self.tblname=self.txtTblname.text()
         import mysql.connector
-        mydb=mysql.connector.connect(host='localhost', user='root',passwd='logon@123',database='python')
+        mydb=mysql.connector.connect(host='localhost', user='root',passwd='logon@123',database='python',auth_plugin='mysql_native_password')
         mycursor=mydb.cursor()
         query='show tables'
         mycursor.execute(query)

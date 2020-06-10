@@ -45,7 +45,7 @@ class Ui_MYSQL_CREATETBL(object):
 
     def createtbl(self):
         import mysql.connector
-        mydb=mysql.connector.connect(host='localhost', user='root',passwd='logon@123',database='python')
+        mydb=mysql.connector.connect(host='localhost', user='root',passwd='logon@123',database='python',auth_plugin='mysql_native_password')
         mycursor=mydb.cursor()
         tablename=self.txttblname.text()
         col1name=self.txtcolumn1name.text()

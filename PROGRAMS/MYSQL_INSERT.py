@@ -32,7 +32,7 @@ class Ui_MYSQL_INSERT(object):
     
     def insert(self):
         import mysql.connector
-        mydb=mysql.connector.connect(host='localhost', user='root',passwd='logon@123',database='python')
+        mydb=mysql.connector.connect(host='localhost', user='root',passwd='logon@123',database='python',auth_plugin='mysql_native_password')
         mycursor=mydb.cursor()
         tblname=self.txttblname.text()
         val1=self.txtvalue1.text()
